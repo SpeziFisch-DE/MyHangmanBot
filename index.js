@@ -1,4 +1,3 @@
-// This line MUST be first, for discord.js to read the process envs!
 require('dotenv').config(); 
 const Discord = require("discord.js");
 const client = new Discord.Client();
