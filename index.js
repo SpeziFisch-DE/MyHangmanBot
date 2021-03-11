@@ -29,7 +29,7 @@ client.on("message", message => {
   } else
   if (command === 'hangman'){
     let wordlist = words.findOne({ "words": "words"});
-    word = wordlist.word[randomInt(wordlinst.word.length)];
+    word = wordlist.word[0];
     message.channel.send(word);
   }
 });
