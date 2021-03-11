@@ -17,10 +17,10 @@ client.on("message", message => {
   const command = args.shift().toLowerCase();
 
   // And our 2 real basic commands!
-  if(command === 'ping') {
+  if(message.content === 'ping') {
     message.channel.send('Pong!');
   } else
-  if (command === 'blah') {
+  if (message.content === 'blah') {
     message.channel.send('Meh.');
   }
 });
