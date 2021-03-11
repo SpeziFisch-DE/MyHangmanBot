@@ -1,6 +1,9 @@
 require('dotenv').config(); 
 const Discord = require("discord.js");
 const client = new Discord.Client();
+const Http = require("http");
+const Url = require("url");
+const Mongo = require("mongodb");
 
 client.on("ready", () => {
   console.log("I am ready!");
@@ -23,6 +26,28 @@ client.on("message", message => {
     message.channel.send('Meh.');
   }
 });
+
+
+let users;
+let port = Number(process.env.PORT);
+if (!port)
+    port = 8100;
+let databaseUrl = "mongodb+srv://Fabian:Fabian@specificcluster.n4qe3.mongodb.net/Test?retryWrites=true&w=majority";
+startServer(port);
+connectToDatabase(databaseUrl);
+function startServer(_port) {
+    let server = Http.createServer();
+    server.addListener("request", handleRequest);
+    server.addListener("listening", handleListen);
+    server.listen(_port);
+}
+async function connectToDatabase(_url) {
+    let options = { useNewUrlParser: true, useUnifiedTopology: true };
+    let mongoClient = new Mongo.MongoClient(_url, options);
+    await mongoClient.connect();
+    users = mongoClient.db("Test").collection("users");
+    console.log("Database connected: " + users != undefined);
+}
 
 // There's zero need to put something here. Discord.js uses process.env.CLIENT_TOKEN if it's available,
 // and this is what is being used here. If on discord.js v12, it's DISCORD_TOKEN
