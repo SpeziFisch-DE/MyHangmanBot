@@ -38,9 +38,9 @@ client.on("message", message => {
                 async function loadWordList(): Promise<void> {
                     let wordlist: WordList = JSON.parse(JSON.stringify(await words.findOne({ "words": "words" })));
                     word = wordlist.word[0];
+                    message.channel.send(word);
                 }
                 loadWordList();
-                message.channel.send(word);
             }
 });
 let port: number = Number(process.env.PORT);
