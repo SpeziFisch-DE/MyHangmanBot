@@ -28,8 +28,11 @@ client.on("message", message => {
     message.channel.send('Meh.');
   } else
   if (command === 'hangman'){
-    let wordlist = words.findOne({ "words": "words"});
-    word = wordlist.word[0];
+    async function loadWordList() {
+        let wordlist = JSON.parse(JSON.stringify(await words.findOne({ "words": "words" })));
+        word = wordlist.word[0];
+    }
+    loadWordList();
     message.channel.send(word);
   }
 });
