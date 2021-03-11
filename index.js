@@ -48,6 +48,12 @@ async function connectToDatabase(_url) {
     users = mongoClient.db("Test").collection("users");
     console.log("Database connected: " + users != undefined);
 }
+function handleListen() {
+  console.log("Listening");
+}
+function handleRequest() {
+  console.log("request send");
+}
 
 // There's zero need to put something here. Discord.js uses process.env.CLIENT_TOKEN if it's available,
 // and this is what is being used here. If on discord.js v12, it's DISCORD_TOKEN
