@@ -5,6 +5,8 @@ const Http = require("http");
 const Url = require("url");
 const Mongo = require("mongodb");
 
+let word = 'word';
+
 client.on("ready", () => {
   console.log("I am ready!");
 });
