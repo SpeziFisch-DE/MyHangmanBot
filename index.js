@@ -34,7 +34,7 @@ client.on("message", message => {
   }
 });
 
-
+let words;
 let users;
 let port = Number(process.env.PORT);
 if (!port)
@@ -53,7 +53,7 @@ async function connectToDatabase(_url) {
     let mongoClient = new Mongo.MongoClient(_url, options);
     await mongoClient.connect();
     users = mongoClient.db("Test").collection("hangman");
-    users = mongoClient.db("Test").collection("words");
+    words = mongoClient.db("Test").collection("words");
     console.log("Database connected: " + users != undefined);
 }
 function handleListen() {
