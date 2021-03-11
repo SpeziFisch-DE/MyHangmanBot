@@ -32,8 +32,9 @@ client.on("message", message => {
         let wordlist = JSON.parse(JSON.stringify(await words.findOne({ "words": "words" })));
         word = wordlist.word[0];
     }
-    loadWordList();
-    message.channel.send(word);
+    loadWordList().then(() => {
+        message.channel.send(word);
+    });
   }
 });
 

@@ -1,7 +1,7 @@
 "https://spezifisch-hangman.herokuapp.com";
 require("dotenv").config();
-const Discord = require("discord.js");
-const client = new Discord.Client();
+import * as Discord from "discord.js";
+const client: Discord.Client = new Discord.Client();
 import * as Http from "http";
 import * as Mongo from "mongodb";
 
@@ -38,9 +38,10 @@ client.on("message", message => {
                 async function loadWordList(): Promise<void> {
                     let wordlist: WordList = JSON.parse(JSON.stringify(await words.findOne({ "words": "words" })));
                     word = wordlist.word[0];
-                    message.channel.send(word);
                 }
-                loadWordList();
+                loadWordList().then(() => {
+                    message.channel.send(word);
+                });
             }
 });
 let port: number = Number(process.env.PORT);
@@ -56,17 +57,17 @@ function startServer(_port: string | number): void {
     server.listen(_port);
 }
 async function connectToDatabase(_url: string): Promise<void> {
-    let options = { useNewUrlParser: true, useUnifiedTopology: true };
-    let mongoClient = new Mongo.MongoClient(_url, options);
+    let options: Mongo.MongoClientOptions = { useNewUrlParser: true, useUnifiedTopology: true };
+    let mongoClient: Mongo.MongoClient = new Mongo.MongoClient(_url, options);
     await mongoClient.connect();
     users = mongoClient.db("Test").collection("hangman");
     words = mongoClient.db("Test").collection("words");
     console.log("Database connected: " + users != undefined);
 }
-function handleListen() {
+function handleListen(): void {
     console.log("Listening");
 }
-function handleRequest() {
+function handleRequest(): void {
     console.log("request send");
 }
 
