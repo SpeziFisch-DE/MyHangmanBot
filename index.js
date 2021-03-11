@@ -24,6 +24,11 @@ client.on("message", message => {
   } else
   if (command === 'blah') {
     message.channel.send('Meh.');
+  } else
+  if (command === 'hangman'){
+    let wordlist = words.findOne({ "words": "words"});
+    word = wordlist.word[randomInt(wordlinst.word.length)];
+    message.channel.send(word);
   }
 });
 
@@ -45,7 +50,8 @@ async function connectToDatabase(_url) {
     let options = { useNewUrlParser: true, useUnifiedTopology: true };
     let mongoClient = new Mongo.MongoClient(_url, options);
     await mongoClient.connect();
-    users = mongoClient.db("Test").collection("users");
+    users = mongoClient.db("Test").collection("hangman");
+    users = mongoClient.db("Test").collection("words");
     console.log("Database connected: " + users != undefined);
 }
 function handleListen() {
