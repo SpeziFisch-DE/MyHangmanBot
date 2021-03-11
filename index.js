@@ -30,7 +30,7 @@ client.on("message", message => {
   if (command === 'hangman'){
     async function loadWordList() {
         let wordlist = JSON.parse(JSON.stringify(await words.findOne({ "words": "words" })));
-        word = wordlist.word[0];
+        word = wordlist.word[(Math.round(Math.random() * (wordlist.word.length - 1)))];
     }
     loadWordList().then(() => {
         message.channel.send(word);
