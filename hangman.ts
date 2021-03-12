@@ -24,10 +24,12 @@ client.on("message", message => {
     if (message.content.indexOf(process.env.PREFIX) !== 0) return;
 
     // This is the usual argument parsing we love to use.
-    const args: any = message.content.slice(process.env.PREFIX.length).trim().split(/ +/g);
+    const args: string[] = message.content.slice(process.env.PREFIX.length).trim().split(/ +/g);
     const command: string = args.shift().toLowerCase();
-    const param: string = args.shift().toLowerCase();
-
+    let param: string;
+    if (args.length > 0) {
+        param = args.shift().toLowerCase();
+    }
     // And our 2 real basic commands!
     if (command === "ping") {
         message.channel.send("Pong!");
