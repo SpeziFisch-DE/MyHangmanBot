@@ -26,6 +26,7 @@ client.on("message", message => {
     // This is the usual argument parsing we love to use.
     const args: any = message.content.slice(process.env.PREFIX.length).trim().split(/ +/g);
     const command: string = args.shift().toLowerCase();
+    const param: string = args.shift().toLowerCase();
 
     // And our 2 real basic commands!
     if (command === "ping") {
@@ -42,6 +43,18 @@ client.on("message", message => {
                 loadWordList().then(() => {
                     message.channel.send(word);
                 });
+            } else if (command === "addword") {
+                async function addword(): Promise<void> {
+                    let wordlist: WordList = JSON.parse(JSON.stringify(await words.findOne({ "words": "words" })));
+                    let allwords: string[] = wordlist.word;
+                    if (param != undefined) {
+                        allwords.push(param);
+                        wordlist.word = allwords;
+                        words.findOneAndReplace({ "words": "words" }, wordlist);
+                        message.channel.send("word added!");
+                    }
+                }
+                addword();
             }
 });
 let port: number = Number(process.env.PORT);
