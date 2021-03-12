@@ -38,6 +38,19 @@ client.on("message", message => {
         message.channel.send(word);
     });
   }
+  else if (command === "addword") {
+      async function addword() {
+          let wordlist = JSON.parse(JSON.stringify(await words.findOne({ "words": "words" })));
+          let allwords = wordlist.word;
+          if (param != undefined) {
+              allwords.push(param);
+              wordlist.word = allwords;
+              words.findOneAndReplace({ "words": "words" }, wordlist);
+              message.channel.send("word added!");
+          }
+      }
+      addword();
+  }
 });
 
 let words;
