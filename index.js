@@ -30,8 +30,7 @@ client.on("message", message => {
     message.channel.send('Pong!');
   } else
     if (command === 'link') {
-      let myEmbed;
-      message.channel.send(["wake me up"]("https://spezifisch-de.github.io/MyHangmanBot/index.html"));
+      message.channel.send("[wake me up](https://spezifisch-de.github.io/MyHangmanBot/index.html)");
     } else
       if (command === 'hangman') {
         async function loadWordList() {
