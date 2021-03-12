@@ -12,6 +12,7 @@ client.on("ready", () => {
 });
 let words;
 let users;
+let hiddenword;
 client.on("message", message => {
     if (message.author.bot)
         return;
@@ -38,7 +39,11 @@ client.on("message", message => {
             word = wordlist.word[(Math.round(Math.random() * (wordlist.word.length - 1)))];
         }
         loadWordList().then(() => {
-            message.channel.send(word);
+            hiddenword = "";
+            for (let i = 0; i < word.length; i++) {
+                hiddenword += "?";
+            }
+            message.channel.send(hiddenword);
         });
     }
     else if (command === "addword") {
@@ -50,12 +55,18 @@ client.on("message", message => {
                 wordlist.word = allwords;
                 await words.findOneAndDelete({ "words": "words" });
                 await words.insertOne(wordlist);
+                message.channel.send("new word added!");
             }
             else {
                 message.channel.send("no word was given!");
             }
         }
         addword();
+    }
+    else if (command == "char") {
+        if (param != undefined) {
+            ;
+        }
     }
 });
 let port = Number(process.env.PORT);
