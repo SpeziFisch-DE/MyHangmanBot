@@ -6,7 +6,4 @@ let url = "http://spezifisch-hangman.herokuapp.com/?test";
 async function wakeServer() {
     await fetch(url);
 }
-if (getSubpage() == "index.html") {
-    open("", "_self").close();
-}
 //# sourceMappingURL=script.js.map
