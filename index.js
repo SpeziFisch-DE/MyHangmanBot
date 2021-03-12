@@ -43,20 +43,21 @@ client.on("message", message => {
         });
       }
       else if (command === "addword") {
-        async function addword() {
-          let wordlist = JSON.parse(JSON.stringify(await words.findOne({ "words": "words" })));
-          let allwords = wordlist.word;
-          if (param != undefined) {
-            allwords.push(param);
-            wordlist.word = allwords;
-            await words.findOneAndReplace({ "words": "words" }, wordlist).then(() => {
-              message.channel.send("word added!");
-            });
+          async function addword() {
+              let wordlist = JSON.parse(JSON.stringify(await words.findOne({ "words": "words" })));
+              let allwords = wordlist.word;
+              if (param != undefined) {
+                  allwords.push(param);
+                  wordlist.word = allwords;
+                  await words.findOneAndReplace({ "words": "words" }, wordlist).then(() => {
+                      message.channel.send("word added!");
+                  });
+              }
+              else {
+                  message.channel.send("no word was given!");
+              }
           }
-        }
-        addword().catch(() => {
-          console.log("something went wrong!");
-        });
+          addword();
       }
 });
 
