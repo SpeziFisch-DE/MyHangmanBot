@@ -6,4 +6,6 @@ let url: string = "https://spezifisch-hangman.herokuapp.com/?test";
 async function wakeServer(): Promise<void> {
     await fetch(url);
 }
-wakeServer();
+wakeServer().catch(() => {
+    console.log("something went wrong!");
+});
