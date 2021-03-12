@@ -1,4 +1,4 @@
-require('dotenv').config(); 
+require('dotenv').config();
 const Discord = require("discord.js");
 const client = new Discord.Client();
 const Http = require("http");
@@ -21,66 +21,66 @@ client.on("message", message => {
   const command = args.shift().toLowerCase();
   let param;
   if (args.length > 0) {
-      param = args.shift().toLowerCase();
+    param = args.shift().toLowerCase();
   }
 
   // And our 2 real basic commands!
-  if(command === 'ping') {
+  if (command === 'ping') {
     message.channel.send('Pong!');
   } else
-  if (command === 'link') {
-    let myEmbed;
-    myEmbed.addField("","wake me up [here](spezifisch-de.github.io/MyHangmanBot/index.html)")
-    message.channel.send(myEmbed);
-  } else
-  if (command === 'hangman'){
-    async function loadWordList() {
-        let wordlist = JSON.parse(JSON.stringify(await words.findOne({ "words": "words" })));
-        word = wordlist.word[(Math.round(Math.random() * (wordlist.word.length - 1)))];
-    }
-    loadWordList().then(() => {
-        message.channel.send(word);
-    });
-  }
-  else if (command === "addword") {
-      async function addword() {
+    if (command === 'link') {
+      let myEmbed;
+      myEmbed.addField("", "wake me up [here](spezifisch-de.github.io/MyHangmanBot/index.html)")
+      message.channel.send(myEmbed);
+    } else
+      if (command === 'hangman') {
+        async function loadWordList() {
+          let wordlist = JSON.parse(JSON.stringify(await words.findOne({ "words": "words" })));
+          word = wordlist.word[(Math.round(Math.random() * (wordlist.word.length - 1)))];
+        }
+        loadWordList().then(() => {
+          message.channel.send(word);
+        });
+      }
+      else if (command === "addword") {
+        async function addword() {
           let wordlist = JSON.parse(JSON.stringify(await words.findOne({ "words": "words" })));
           let allwords = wordlist.word;
           if (param != undefined) {
-              allwords.push(param);
-              wordlist.word = allwords;
-              await words.findOneAndReplace({ "words": "words" }, wordlist).then(() => {
-                message.channel.send("word added!");
-              });
+            allwords.push(param);
+            wordlist.word = allwords;
+            await words.findOneAndReplace({ "words": "words" }, wordlist).then(() => {
+              message.channel.send("word added!");
+            });
           }
+        }
+        addword().catch(() => {
+          console.log("something went wrong!");
+        });
       }
-      addword().catch(() => {
-        console.log("something went wrong!");
-    });
-  }
 });
 
 let words;
 let users;
 let port = Number(process.env.PORT);
 if (!port)
-    port = 8100;
+  port = 8100;
 let databaseUrl = "mongodb+srv://Fabian:Fabian@specificcluster.n4qe3.mongodb.net/Test?retryWrites=true&w=majority";
 startServer(port);
 connectToDatabase(databaseUrl);
 function startServer(_port) {
-    let server = Http.createServer();
-    server.addListener("request", handleRequest);
-    server.addListener("listening", handleListen);
-    server.listen(_port);
+  let server = Http.createServer();
+  server.addListener("request", handleRequest);
+  server.addListener("listening", handleListen);
+  server.listen(_port);
 }
 async function connectToDatabase(_url) {
-    let options = { useNewUrlParser: true, useUnifiedTopology: true };
-    let mongoClient = new Mongo.MongoClient(_url, options);
-    await mongoClient.connect();
-    users = mongoClient.db("Test").collection("hangman");
-    words = mongoClient.db("Test").collection("words");
-    console.log("Database connected: " + users != undefined);
+  let options = { useNewUrlParser: true, useUnifiedTopology: true };
+  let mongoClient = new Mongo.MongoClient(_url, options);
+  await mongoClient.connect();
+  users = mongoClient.db("Test").collection("hangman");
+  words = mongoClient.db("Test").collection("words");
+  console.log("Database connected: " + users != undefined);
 }
 function handleListen() {
   console.log("Listening");
