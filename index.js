@@ -50,7 +50,9 @@ client.on("message", message => {
               message.channel.send("word added!");
           }
       }
-      addword();
+      addword().catch(() => {
+        console.log("something went wrong!");
+    });
   }
 });
 
