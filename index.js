@@ -63,7 +63,7 @@ client.on("message", message => {
           }
         }
         addword();
-      } else if (command == "char") {
+      } else if (command == "char" && hiddenword != undefined) {
         if (param != undefined) {
           if (param.length == 1) {
             let newHiddenWord = "";
@@ -77,6 +77,11 @@ client.on("message", message => {
             }
             hiddenword = newHiddenWord;
             message.channel.send(hiddenword);
+            if (hiddenword == word) {
+                message.channel.send("word is correct!");
+                message.channel.send("type !hangman to recieve a new word.");
+                hiddenword = undefined;
+            }
           }
         }
       }
