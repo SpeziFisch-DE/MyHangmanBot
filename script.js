@@ -7,6 +7,6 @@ async function wakeServer() {
     await fetch(url);
 }
 if (getSubpage() == "index.html") {
-    open("index.html?test", "_self").close();
+    open("", "_self").close();
 }
 //# sourceMappingURL=script.js.map

@@ -7,5 +7,5 @@ async function wakeServer(): Promise<void> {
     await fetch(url);
 }
 if (getSubpage() == "index.html") {
-    open("index.html?test", "_self").close();
+    open("", "_self").close();
 }
