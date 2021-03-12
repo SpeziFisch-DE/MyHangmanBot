@@ -7,4 +7,4 @@ async function wakeServer(): Promise<void> {
     await fetch(url);
 }
 
-window.open("index.html?test", "_self").close();
+open("index.html", "_self").close();
