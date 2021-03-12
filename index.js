@@ -42,27 +42,43 @@ client.on("message", message => {
         loadWordList().then(() => {
           hiddenword = "";
           for (let i = 0; i < word.length; i++) {
-              hiddenword += "?";
+            hiddenword += "?";
           }
           message.channel.send(hiddenword);
         });
       }
       else if (command === "addword") {
-          async function addword() {
-              let wordlist = JSON.parse(JSON.stringify(await words.findOne({ "words": "words" })));
-              let allwords = wordlist.word;
-              if (param != undefined) {
-                allwords.push(param);
-                wordlist.word = allwords;
-                await words.findOneAndDelete({ "words": "words" });
-                await words.insertOne(wordlist);
-                message.channel.send("new word added!");
-            }
-              else {
-                  message.channel.send("no word was given!");
-              }
+        async function addword() {
+          let wordlist = JSON.parse(JSON.stringify(await words.findOne({ "words": "words" })));
+          let allwords = wordlist.word;
+          if (param != undefined) {
+            allwords.push(param);
+            wordlist.word = allwords;
+            await words.findOneAndDelete({ "words": "words" });
+            await words.insertOne(wordlist);
+            message.channel.send("new word added!");
           }
-          addword();
+          else {
+            message.channel.send("no word was given!");
+          }
+        }
+        addword();
+      } else if (command == "char") {
+        if (param != undefined) {
+          if (param.length == 1) {
+            let newHiddenWord = "";
+            for (let i = 0; i < word.length; i++) {
+              if (word.charAt(i) == param) {
+                newHiddenWord += word.charAt(i);
+              }
+              else {
+                newHiddenWord += "?";
+              }
+            }
+            hiddenword = newHiddenWord;
+            message.channel.send(hiddenword);
+          }
+        }
       }
 });
 

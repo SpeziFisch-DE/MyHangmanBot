@@ -65,7 +65,19 @@ client.on("message", message => {
     }
     else if (command == "char") {
         if (param != undefined) {
-            ;
+            if (param.length == 1) {
+                let newHiddenWord = "";
+                for (let i = 0; i < word.length; i++) {
+                    if (word.charAt(i) == param) {
+                        newHiddenWord += word.charAt(i);
+                    }
+                    else {
+                        newHiddenWord += "?";
+                    }
+                }
+                hiddenword = newHiddenWord;
+                message.channel.send(hiddenword);
+            }
         }
     }
 });
