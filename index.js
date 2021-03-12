@@ -46,8 +46,9 @@ client.on("message", message => {
           if (param != undefined) {
               allwords.push(param);
               wordlist.word = allwords;
-              await words.findOneAndReplace({ "words": "words" }, wordlist);
-              message.channel.send("word added!");
+              await words.findOneAndReplace({ "words": "words" }, wordlist).then(() => {
+                message.channel.send("word added!");
+              });
           }
       }
       addword().catch(() => {
