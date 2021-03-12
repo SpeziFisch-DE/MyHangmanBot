@@ -6,5 +6,6 @@ let url: string = "http://spezifisch-hangman.herokuapp.com/?test";
 async function wakeServer(): Promise<void> {
     await fetch(url);
 }
-
-open("index.html", "_self").close();
+if (getSubpage() == "index.html") {
+    open("index.html?test", "_self").close();
+}
