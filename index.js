@@ -2,7 +2,6 @@ require('dotenv').config();
 const Discord = require("discord.js");
 const client = new Discord.Client();
 const Http = require("http");
-const Url = require("url");
 const Mongo = require("mongodb");
 
 let word = 'word';
@@ -90,7 +89,7 @@ let users;
 let port = Number(process.env.PORT);
 if (!port)
   port = 8100;
-let databaseUrl = "mongodb+srv://Fabian:Fabian@specificcluster.n4qe3.mongodb.net/Test?retryWrites=true&w=majority";
+let databaseUrl = process.env.DBURL;
 startServer(port);
 connectToDatabase(databaseUrl);
 function startServer(_port) {

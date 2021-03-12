@@ -1,5 +1,4 @@
 "use strict";
-"https://spezifisch-hangman.herokuapp.com";
 Object.defineProperty(exports, "__esModule", { value: true });
 require("dotenv").config();
 const Discord = require("discord.js");

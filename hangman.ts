@@ -1,4 +1,3 @@
-"https://spezifisch-hangman.herokuapp.com";
 require("dotenv").config();
 import * as Discord from "discord.js";
 const client: Discord.Client = new Discord.Client();
