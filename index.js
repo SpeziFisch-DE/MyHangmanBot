@@ -72,7 +72,7 @@ client.on("message", message => {
                 newHiddenWord += word.charAt(i);
               }
               else {
-                newHiddenWord += "?";
+                newHiddenWord += hiddenword.charAt(i);
               }
             }
             hiddenword = newHiddenWord;

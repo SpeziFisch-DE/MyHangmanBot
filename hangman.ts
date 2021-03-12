@@ -73,7 +73,7 @@ client.on("message", message => {
                             if (word.charAt(i) == param) {
                                 newHiddenWord += word.charAt(i);
                             } else {
-                                newHiddenWord += "?";
+                                newHiddenWord += hiddenword.charAt(i);
                             }
                         }
                         hiddenword = newHiddenWord;
