@@ -19,6 +19,7 @@ client.on("message", message => {
   // This is the usual argument parsing we love to use.
   const args = message.content.slice(process.env.PREFIX.length).trim().split(/ +/g);
   const command = args.shift().toLowerCase();
+  const param = args.shift().toLowerCase();
 
   // And our 2 real basic commands!
   if(command === 'ping') {
