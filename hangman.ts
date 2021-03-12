@@ -31,8 +31,8 @@ client.on("message", message => {
     if (command === "ping") {
         message.channel.send("Pong!");
     } else
-        if (command === "blah") {
-            message.channel.send("Meh.");
+        if (command === "link") {
+            message.channel.send("[wake me up](spezifisch-de.github.io/MyHangmanBot/index.html)");
         } else
             if (command === "hangman") {
                 async function loadWordList(): Promise<void> {
